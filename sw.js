@@ -12,6 +12,7 @@ async function checkUpdate(){ try{
     if(old!==null) (await self.clients.matchAll()).forEach(cl=>cl.postMessage({t:'updated'}));
   }catch(e){} }
 self.addEventListener('fetch',e=>{ const u=new URL(e.request.url); if(u.origin!==location.origin||e.request.method!=='GET') return;
+  if(u.pathname.includes('/pijplijn/')) return; /* aparte Pijplijn-launcher: niet door de Expansietracker laten afhandelen */
   const r=rel(e.request.url);
   if(e.request.mode==='navigate'||r==='index.html'||r===''){ e.respondWith(caches.open(SHELL).then(c=>c.match('index.html')).then(hit=>{ e.waitUntil(checkUpdate()); return hit||fetch(e.request); })); return; }
   if(u.searchParams.has('v')){ e.respondWith(caches.open(DATA).then(async c=>{ const hit=await c.match(e.request); if(hit) return hit; const res=await fetch(e.request); if(res.ok) c.put(e.request,res.clone()); return res; })); return; }

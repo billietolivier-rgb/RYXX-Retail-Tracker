@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RYXX Pijplijn</title>
+<meta name="theme-color" content="#2e6047">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:linear-gradient(160deg,#2e6047,#24503b);color:#fff;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;text-align:center}
+.box{max-width:380px;width:100%}
+img{width:96px;height:96px;border-radius:24px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
+h1{font-size:22px;margin:18px 0 6px}
+p{margin:0 0 18px;color:rgba(255,255,255,.8);font-size:14.5px}
+a.btn{display:block;background:#e9531d;color:#fff;text-decoration:none;font-weight:600;padding:14px 18px;border-radius:14px;box-shadow:0 8px 20px -8px rgba(233,83,29,.8)}
+ol{text-align:left;font-size:14px;color:rgba(255,255,255,.85);padding-left:20px;margin:22px 0 0}
+.app ol,.app #hint{display:none}
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="icon-192.png" alt="RY">
+  <h1>RYXX Pijplijn</h1>
+  <p id="msg">Dossiers, opvolgpunten en vergunningen.</p>
+  <a class="btn" id="go" href="https://claude.ai/artifact/MoSa5GB2wMyeRXpsdHSPPh">Open de Pijplijn</a>
+  <ol id="hint">
+    <li>Tik in Chrome op <b>⋮</b> en kies <b>Toevoegen aan startscherm</b> of <b>App installeren</b>.</li>
+    <li>Het RY-icoon verschijnt op je startscherm.</li>
+    <li>Tik erop: de Pijplijn opent meteen (aangemeld bij claude.ai).</li>
+  </ol>
+</div>
+<script>
+// Als app (vanaf het startscherm): meteen doorsturen naar de Pijplijn. In de browser: knop + uitleg tonen om te installeren.
+const isApp=matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: minimal-ui)").matches||new URLSearchParams(location.search).has("app");
+if(isApp){document.body.classList.add("app");document.getElementById("msg").textContent="Pijplijn openen…";location.replace(document.getElementById("go").href);}
+</script>
+</body>
+</html>
